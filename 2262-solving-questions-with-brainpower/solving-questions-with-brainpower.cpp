@@ -4,18 +4,19 @@ using namespace std;
 class Solution {
 	public:
 
-		long long solve(vector<vector<int>>& questions, int i,vector<long long>& dp) {
-		
-			if(i>=questions.size()) return 0;
-			if(dp[i]!=-1) return dp[i];
-			long long ans = 0;
-			ans = max(ans,solve(questions,i+1,dp));
-			ans = max(ans,questions[i][0]+solve(questions,i+questions[i][1]+1,dp));
-			return dp[i] = ans;
-		}
+	
 		long long mostPoints(vector<vector<int>>& questions) {
 			vector<long long> dp(questions.size(),-1);
-			return solve(questions,0,dp);
+
+			for(int i=questions.size()-1;i>=0;i--){
+				int points = questions[i][0];
+				int jump = questions[i][1];
+				long long take = points + (i+jump+1 < questions.size() ? dp[i+jump+1] : 0);
+				long long notTake = (i+1 < questions.size() ? dp[i+1] : 0);
+				dp[i] = max(take,notTake);
+			}
+
+			return dp[0];
 			
 		}
 	};
