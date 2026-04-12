@@ -46,19 +46,16 @@ public:
         }
         n=word.size();
         int ans=INT_MAX;
+        int f1=word[0]-'A';
 
-        
-        for(int f1=0;f1<26;f1++){
             for(int f2=0;f2<26;f2++){
-                if(f1==f2){
-                    continue;
-                }
+               
 
                 ans=min(ans,func(0,f1,f2,word));
 
 
             }
-        }
+        
         return ans;
         
 
